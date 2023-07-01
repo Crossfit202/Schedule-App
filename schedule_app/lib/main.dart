@@ -464,7 +464,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       const SizedBox(height: 16),
                       Text(
                         main,
-                        style: const TextStyle(fontSize: 24),
+                        style: const TextStyle(fontSize: 34),
                       ),
                       const SizedBox(height: 8),
                       Text(
