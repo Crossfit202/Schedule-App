@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _startTimeController = TextEditingController();
   final TextEditingController _durationController = TextEditingController();
 
-  List<Meeting> _events = [];
+  List<Event> _events = [];
 
   // This method is called when the state object is first created.
   @override
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (eventList != null) {
       setState(() {
         _events = eventList
-            .map((eventString) => Meeting.fromMap(jsonDecode(eventString)))
+            .map((eventString) => Event.fromMap(jsonDecode(eventString)))
             .toList();
       });
     }
@@ -187,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     // Adds a new event to the _events list.
                     _events.add(
-                      Meeting(
+                      Event(
                         eventName: eventName,
                         from: startTime,
                         to: endTime,
@@ -214,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        final Meeting meeting = _events[index];
+        final Event meeting = _events[index];
         final String eventName = meeting.eventName;
         final String startTime =
             meeting.from.toString().split(' ')[1].substring(0, 5);
@@ -269,13 +269,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SfCalendar(
         view: CalendarView.week,
-        dataSource: MeetingDataSource(_events),
+        dataSource: EventDataSource(_events),
         monthViewSettings: const MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
         ),
         onTap: (CalendarTapDetails details) {
           if (details.targetElement == CalendarElement.appointment) {
-            final Meeting meeting = details.appointments![0] as Meeting;
+            final Event meeting = details.appointments![0] as Event;
             final int index = _events.indexOf(meeting);
             _deleteEvent(index);
           }
@@ -301,10 +301,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MeetingDataSource extends CalendarDataSource {
+class EventDataSource extends CalendarDataSource {
   // MeetingDataSource class that extends the CalendarDataSource class
 
-  MeetingDataSource(List<Meeting> source) {
+  EventDataSource(List<Event> source) {
     // Constructor for the MeetingDataSource class that takes a List of Meetings as input
     // and assigns it to the 'appointments' field of the class
     appointments = source;
@@ -346,8 +346,8 @@ class MeetingDataSource extends CalendarDataSource {
   }
 }
 
-class Meeting {
-  Meeting({
+class Event {
+  Event({
     required this.eventName,
     required this.from,
     required this.to,
@@ -374,9 +374,9 @@ class Meeting {
     };
   }
 
-  factory Meeting.fromMap(Map<String, dynamic> map) {
+  factory Event.fromMap(Map<String, dynamic> map) {
     // Factory constructor that constructs a Meeting object from a Map representation
-    return Meeting(
+    return Event(
       eventName: map['eventName'],
       from: DateTime.fromMillisecondsSinceEpoch(map['from']),
       to: DateTime.fromMillisecondsSinceEpoch(map['to']),
