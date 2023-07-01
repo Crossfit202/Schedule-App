@@ -4,7 +4,7 @@ My app is a scheduling app that helps people plan their events around the weathe
 
 I scooter to the library to do my homework when the weather is nice and I wanted an app that can help me know when I should plan on going and how to adjust my schedule since it's dependent on the weather.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/Vsb1PyQTyoI)
 
 # Development Environment
 
